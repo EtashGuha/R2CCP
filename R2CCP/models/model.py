@@ -1,8 +1,8 @@
 import torch
 import pytorch_lightning as pl
 from torch import optim
-from models.transformer import Transformer
-from models.mlp import MLPModel
+from R2CCP.models.transformer import Transformer
+from R2CCP.models.mlp import MLPModel
 import torchvision.models as tnmodels
 from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 from torch.optim.lr_scheduler import CosineAnnealingLR, LinearLR, MultiStepLR

@@ -1,11 +1,11 @@
 import torch
-from data import get_loaders, get_input_and_range, get_train_cal_data
-from argparser import get_parser_args
+from R2CCP.data import get_loaders, get_input_and_range, get_train_cal_data
+from R2CCP.argparser import get_parser_args
 import pytorch_lightning as pl
-from models.model import GenModule
+from R2CCP.models.model import GenModule
 import os
-from cp import get_cp_lists, calc_coverages_and_lengths
-from models.callbacks import get_callbacks
+from R2CCP.cp import get_cp_lists, calc_coverages_and_lengths
+from R2CCP.models.callbacks import get_callbacks
 import random
 import numpy as np
 
@@ -71,7 +71,7 @@ class R2CCP():
             train_loader, cal_loader = get_loaders(X, y, self._args)
             callbacks = get_callbacks(self._args)
             if torch.cuda.is_available():
-                trainer = pl.Trainer(max_epochs=self._args.max_epochs, accelerator="gpu", devices=-1, callbacks=callbacks)
+                trainer = pl.Trainer(max_epochs=self._args.max_epochs, accelerator="gpu", devices=[0], callbacks=callbacks)
             else:
                 trainer = pl.Trainer(max_epochs=self._args.max_epochs, accelerator="cpu", callbacks=callbacks)
 
