@@ -13,7 +13,13 @@ author = 'Etash Guha'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'sphinxcontrib.apidoc'
+]
+apidoc_module_dir = '../R2CCP'
+apidoc_output_dir = 'reference'
+apidoc_excluded_paths = ['tests']
+apidoc_separate_modules = True
 
 templates_path = ['_templates']
 exclude_patterns = []
