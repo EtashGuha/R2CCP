@@ -54,7 +54,7 @@ def get_parser_args():
     parser.add_argument('--devices', default=-1, help="Input can be an int or a list of ints")
     parser.add_argument("--entropy_weight", type=float, default=1)
     parser.add_argument("--loss_weight", type=float, default=5)
-    parser.add_argument('--num_workers', type=float, default=1)
+    parser.add_argument('--num_workers', type=float, default=2)
     
 
     return parser

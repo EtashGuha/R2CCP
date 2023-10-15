@@ -24,7 +24,13 @@ setup(
     "scipy==1.7.3",
     "six==1.16.0",
     'torch==2.0.1',
-    "tqdm"
+    'torchvision==0.15.2',
+    'urllib3',
+    "tqdm",
+    "charset-normalizer",
+    "idna",
+    "certifi",
+    "mpmath"
 ], # add any additional packages that 
         # needs to be installed along with your package. Eg: 'caer'
         
