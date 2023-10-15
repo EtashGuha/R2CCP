@@ -4,7 +4,7 @@ from torch import optim
 from R2CCP.models.transformer import Transformer
 from R2CCP.models.mlp import MLPModel
 import torchvision.models as tnmodels
-from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
+# from pl_bolts.optimizers.lr_scheduler import LinearWarmupCosineAnnealingLR
 from torch.optim.lr_scheduler import CosineAnnealingLR, LinearLR, MultiStepLR
 
 # Define a LightningModule
@@ -84,12 +84,12 @@ class GenModule(pl.LightningModule):
                 optimizer,
                 T_max=self.arguments.max_epochs,
             )
-        elif self.arguments.lr_scheduler == "cosine_warmup":
-            scheduler = LinearWarmupCosineAnnealingLR(
-                optimizer,
-                self.arguments.lr_warmup_epochs,
-                self.arguments.max_epochs,
-            )
+        # elif self.arguments.lr_scheduler == "cosine_warmup":
+        #     scheduler = LinearWarmupCosineAnnealingLR(
+        #         optimizer,
+        #         self.arguments.lr_warmup_epochs,
+        #         self.arguments.max_epochs,
+        #     )
         elif self.arguments.lr_scheduler == "linear":
             scheduler = LinearLR(
                 optimizer,
