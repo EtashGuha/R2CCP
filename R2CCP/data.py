@@ -13,8 +13,8 @@ def get_loaders(X, y, args):
     train_dataset = TensorDataset(X_train, y_train)
     cal_dataset = TensorDataset(X_cal, y_cal)
 
-    train_loader = DataLoader(train_dataset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
-    cal_loader = DataLoader(cal_dataset, batch_size=args.batch_size, num_workers=args.num_workers)
+    train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
+    cal_loader = DataLoader(cal_dataset, batch_size=args.batch_size)
 
     return train_loader, cal_loader
 

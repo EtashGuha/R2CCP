@@ -16,7 +16,6 @@ setup(
         packages=find_packages(),
         install_requires=[
     "ConfigArgParse==1.7",
-    "lightning_bolts==0.7.0",
     "numpy==1.22.1",
     "pyinterval==1.2.0",
     "pytorch_lightning==1.9.5",

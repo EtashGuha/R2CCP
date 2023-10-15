@@ -8,7 +8,10 @@ from R2CCP.cp import get_cp_lists, calc_coverages_and_lengths
 from R2CCP.models.callbacks import get_callbacks
 import random
 import numpy as np
+import warnings
 
+# Ignore all warnings
+warnings.filterwarnings("ignore")
 
 
 class R2CCP():
