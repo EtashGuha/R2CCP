@@ -72,12 +72,12 @@ def get_cp_lists(X, args, range_vals, X_cal, y_cal, model):
 
     return all_intervals
 
-def calc_coverages_and_lengths(all_intervals, y, range_vals):
+def calc_coverages_and_lengths(all_intervals, y):
     coverages = []
     lengths = []
     for idx, intervals in enumerate(all_intervals):
         if len(intervals) == 0:
-            return 1, torch.tensor(range_vals[-1] - range_vals[0])
+            return 1, torch.tensor(np.max(y) - np.min(y))
         else:
             length = 0
             cov_val = 0
@@ -86,10 +86,6 @@ def calc_coverages_and_lengths(all_intervals, y, range_vals):
                 if interval[1]  >= y[idx].item() and y[idx].item() >= interval[0]:
                     cov_val = 1
         coverages.append(cov_val)
-        lengths.append(length.item())
+        lengths.append(length)
 
     return coverages, lengths
-
-def get_cp(args, range_vals, X_val, y_val, model):
-    coverages, lengths = get_cp_lists(args, range_vals, X_val, y_val, model)
-    return np.mean(coverages).item(), np.std(coverages).item(), torch.mean(torch.stack(lengths)).item(), torch.std(torch.stack(lengths)).item(), np.std(coverages)/np.sqrt(len(coverages)),  torch.std(torch.stack(lengths)).item()/np.sqrt(len(lengths))

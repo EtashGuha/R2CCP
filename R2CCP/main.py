@@ -9,6 +9,7 @@ from R2CCP.models.callbacks import get_callbacks
 import random
 import numpy as np
 import warnings
+from sklearn.preprocessing import StandardScaler
 
 # Ignore all warnings
 warnings.filterwarnings("ignore")
@@ -60,9 +61,15 @@ class R2CCP():
 
     def fit(self, X, y):
         seed_everything(self._args.seed)
-        self.train_X = X
-        self.train_y = y
-        input_size, range_vals = get_input_and_range(X, y, self._args)
+        self.scaler_X = StandardScaler()
+        self.scaler_X = self.scaler_X.fit(X)
+        self.train_X = self.scaler_X.transform(X)
+
+        self.scaler_y = StandardScaler()
+        self.scaler_y = self.scaler_y.fit(y)
+        self.train_y = self.scaler_y.transform(y)
+
+        input_size, range_vals = get_input_and_range(self.train_X, self.train_y, self._args)
         self.range_vals = range_vals
 
         model = GenModule(self._args, input_size, range_vals)
@@ -71,7 +78,7 @@ class R2CCP():
         if os.path.exists(total_path):
             model.load_state_dict(torch.load(total_path))
         else:
-            train_loader, cal_loader = get_loaders(X, y, self._args)
+            train_loader, cal_loader = get_loaders(self.train_X, self.train_y, self._args)
             callbacks = get_callbacks(self._args)
             if torch.cuda.is_available():
                 trainer = pl.Trainer(max_epochs=self._args.max_epochs, accelerator="gpu", devices=[0], callbacks=callbacks)
@@ -83,15 +90,26 @@ class R2CCP():
         model.eval()
         self.model = model
     
+    def invert_intervals(self, intervals):
+        temp_intervals = []
+        for interval in intervals:
+            curr_interval = []
+            for tup in interval:
+                curr_interval.append((self.scaler_y.inverse_transform(tup[0].detach().numpy().reshape(-1, 1)).item(), self.scaler_y.inverse_transform(tup[1].detach().numpy().reshape(-1, 1)).item()))
+            temp_intervals.append(curr_interval)
+        return temp_intervals
+    
     def get_intervals(self, X):
         X_train, y_train, X_cal, y_cal = get_train_cal_data(self.train_X, self.train_y, self._args)
-        intervals = get_cp_lists(X, self._args, self.range_vals, X_cal, y_cal, self.model)
-        return intervals
+        intervals = get_cp_lists(self.scaler_X.transform(X), self._args, self.range_vals, X_cal, y_cal, self.model)
+        actual_intervals = self.invert_intervals(intervals)
+        return actual_intervals
     
     def get_coverage_length(self, X, y):
         X_train, y_train, X_cal, y_cal = get_train_cal_data(self.train_X, self.train_y, self._args)
-        intervals = get_cp_lists(X, self._args, self.range_vals, X_cal, y_cal, self.model)
-        return calc_coverages_and_lengths(intervals, y, self.range_vals)
+        intervals = get_cp_lists(self.scaler_X.transform(X), self._args, self.range_vals, X_cal, y_cal, self.model)
+        actual_intervals = self.invert_intervals(intervals)
+        return calc_coverages_and_lengths(actual_intervals, y)
 
 def seed_everything(seed):
     random.seed(seed)
