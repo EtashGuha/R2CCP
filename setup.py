@@ -18,14 +18,13 @@ setup(
     "ConfigArgParse==1.7",
     "lightning_bolts==0.7.0",
     "numpy==1.22.1",
-    "pandas==2.0.3",
     "pyinterval==1.2.0",
     "pytorch_lightning==1.9.5",
     "scikit_learn==1.3.0",
     "scipy==1.7.3",
     "six==1.16.0",
     'torch==2.0.1',
-    "tqdm==4.66.1"
+    "tqdm"
 ], # add any additional packages that 
         # needs to be installed along with your package. Eg: 'caer'
         
