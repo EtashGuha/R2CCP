@@ -30,11 +30,11 @@ class R2CCP():
                 - weight_decay (float): Weight decay (default: 0.0).
                 - ffn_activation (str): Activation function for the FFN. Choices: ['relu', 'sigmoid'] (default: 'relu').
                 - ffn_hidden_dim (int): Number of nodes in FFN hidden layers (default: 256).
-                - transformer_hidden_dim (int): Number of nodes in transformer hidden layers (default: 256).
+                - transformer_hidden_dim (int): Number of nodes in transformer hidden layers (default: 256). Coming soon
                 - ffn_num_layers (int): Number of layers in FFN (default: 3).
-                - transformer_num_layers (int): Number of layers in transformer (default: 3).
+                - transformer_num_layers (int): Number of layers in transformer (default: 3). Coming soon
                 - lq_norm_val (float): Lq norm value (default: .5).
-                - transformer_num_heads (int): Number of heads in transformer (default: 8).
+                - transformer_num_heads (int): Number of heads in transformer (default: 8). Coming soon
                 - dropout_prob (float): Dropout probability (default: 0).
                 - lr_scheduler (str): Learning rate scheduler. Choices: ['cosine', 'cosine_warmup', 'linear', 'step', 'absent'] (default: 'cosine').
                 - batch_size (int): Batch size (default: 32).
