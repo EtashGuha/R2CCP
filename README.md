@@ -3,7 +3,23 @@ This is a library for generating prediction sets for machine learning regression
 We do this by first converting regression to a classification problem (divide the output space into 50 bins) and then using CP techniques for
 classification to obtain a conformal set.
 
+## Get Started
+Our [example file](exa.py) file provides a basic example of how to use our R2CCP class for conformal prediction. At a high level, the basic steps are instantiating the model class, fitting against data, and analyzing the results. 
+```
+# Instiantiate the model
+model = R2CCP(/* model params */)
+
+# Fit against the data
+model.fit(X_train, y_train)
+
+# Analyze the results
+intervals = model.get_intervals(X_test)
+coverage, length = model.get_coverage_length(X_test, Y_test)
+print(f"Coverage: {np.mean(coverage)}, Length: {np.mean(length)}")
+```
+
 ## R2CCP Parameters
+The R2CCP class can be instantiated with a variety of different parameters. Here is an overview of all the available options.
 - early_stopping (bool): Enable early stopping (default: False). Uses Pytorch Lightning EarlyStopping. Set custom configuration in R2CCP/models/callbacks.py
 - save_path (str): Where to save the model (default: None)
 - alpha (float): Alpha parameter (default: 0.1).
