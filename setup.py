@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 VERSION = '0.0.3' 
-DESCRIPTION = 'R2CCP First Package'
-LONG_DESCRIPTION = 'R2CCP First Package'
+DESCRIPTION = 'R2CCP Package for Conformal Prediction'
+LONG_DESCRIPTION = 'This package provides a class for using R2CCP (Regression to Classification for Conformal Prediction)'
 
 # Setting up
 setup(
@@ -14,6 +14,7 @@ setup(
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
+        readme = "README.md",
         install_requires=[
     "ConfigArgParse>=1.7",
     "numpy>=1.22.1",
