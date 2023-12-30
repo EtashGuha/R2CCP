@@ -14,6 +14,7 @@ setup(
         author_email="etashguha@gmail.com",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
+        long_description_content_type="text/markdown",
         packages=find_packages(),
         install_requires=[
     "ConfigArgParse>=1.7",
