@@ -5,7 +5,7 @@ Y_train = 2 * X_train + 1 + 0.1 * np.random.randn(10, 1)
 X_test = np.random.rand(10, 1)
 Y_test = 2 * X_test + 1 + 0.1 * np.random.randn(10, 1)
 
-model = R2CCP({'model_path':'model_paths/idk.pth', 'max_epochs':5})
+model = R2CCP({'model_path':'model_paths/model_save_destination.pth', 'max_epochs':5})
 model.fit(X_train, Y_train)
 
 intervals = model.get_intervals(X_test)
