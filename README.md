@@ -21,6 +21,7 @@ print(f"Coverage: {np.mean(coverage)}, Length: {np.mean(length)}")
 
 ## R2CCP Parameters
 The R2CCP class can be instantiated with a variety of different parameters. Here is an overview of all the available options.
+- model_path (string): File path to save trained model to (ex. path/file_name.pth)(Required)
 - early_stopping (bool): Enable early stopping (default: False). Uses Pytorch Lightning EarlyStopping. Set custom configuration in R2CCP/models/callbacks.py
 - save_path (str): Where to save the model (default: None)
 - alpha (float): Alpha parameter (default: 0.1).
