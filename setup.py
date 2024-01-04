@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 current_directory = Path(__file__).parent
-VERSION = '0.0.4' 
+VERSION = '0.0.5' 
 DESCRIPTION = 'R2CCP Package for Conformal Prediction'
 LONG_DESCRIPTION = (current_directory / "README.md").read_text()
 
