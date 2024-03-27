@@ -61,6 +61,24 @@ class R2CCP():
 
     def fit(self, X, y):
         seed_everything(self._args.seed)
+        
+        total_path = self._args.model_path
+        
+        parent_dir = os.path.dirname(total_path)
+        
+        if not os.path.exists(parent_dir):
+            raise AssertionError(f"Parent directory does not exist: {parent_dir}")
+        
+        if len(y.shape) > 1 and y.shape[1] != 1:
+            raise AssertionError(f"Labels are not in an acceptable shape: {y.shape}.")
+        
+        if len(y.shape) == 1:
+            y = np.expand_dims(y, axis=1)
+        
+        if len(X.shape) != 2:
+            raise AssertionError(f"Features are not in an acceptable shape: {X.shape}.")
+        
+        
         self.scaler_X = StandardScaler()
         self.scaler_X = self.scaler_X.fit(X)
         self.train_X = self.scaler_X.transform(X)
@@ -74,7 +92,8 @@ class R2CCP():
 
         model = GenModule(self._args, input_size, range_vals)
 
-        total_path = self._args.model_path
+        
+   
         if os.path.exists(total_path):
             model.load_state_dict(torch.load(total_path))
         else:
