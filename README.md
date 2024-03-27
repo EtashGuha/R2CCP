@@ -6,6 +6,9 @@ classification to obtain a conformal set.
 ## Get Started
 Our example file (example.py) provides a simple demonstration of how to use our R2CCP class for conformal prediction. At a high level, the basic steps are instantiating the model class, fitting against data, and analyzing the results. 
 ```
+# Import the model
+from R2CCP.main import R2CCP
+
 # Instiantiate the model
 model = R2CCP({'model_path':'model_paths/model_save_destination.pth', 'max_epochs':5})
 // model_path is where to save the trained model output (required parameter)
