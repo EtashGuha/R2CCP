@@ -51,9 +51,7 @@ def get_all_scores(range_vals, X, y, model):
     
     scores = get_scores(X, model)
 
-    all_scores = torch.zeros_like(y, dtype=torch.float)
-    for i in range(len(X)):
-        all_scores[i]=scores[i, indices_up.reshape(-1).long()[i]] * weight_up[i] + scores[i, indices_down.reshape(-1).long()[i]] * weight_down[i]
+    all_scores = scores[torch.arange(len(X)), indices_up.squeeze().long()] * weight_up + scores[torch.arange(len(X)), indices_down.squeeze().long()] * weight_down
     
     all_scores[bad_indices] = 0
     return scores, all_scores
