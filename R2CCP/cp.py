@@ -50,7 +50,9 @@ def get_all_scores(range_vals, X, y, model):
     indices_down[bad_indices] = 0
     
     scores = get_scores(X, model)
-    all_scores = scores[torch.arange(len(X)), indices_up.long()] * weight_up + scores[torch.arange(len(X)), indices_down.long()] * weight_down
+
+    all_scores = scores[torch.arange(len(X)), indices_up.squeeze().long()] * weight_up + scores[torch.arange(len(X)), indices_down.squeeze().long()] * weight_down
+    
     all_scores[bad_indices] = 0
     return scores, all_scores
 
@@ -77,7 +79,8 @@ def calc_coverages_and_lengths(all_intervals, y):
     lengths = []
     for idx, intervals in enumerate(all_intervals):
         if len(intervals) == 0:
-            return 1, torch.tensor(np.max(y) - np.min(y))
+            length = 0
+            cov_val = 0
         else:
             length = 0
             cov_val = 0
