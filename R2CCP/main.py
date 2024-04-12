@@ -4,7 +4,7 @@ from R2CCP.argparser import get_parser_args
 import pytorch_lightning as pl
 from R2CCP.models.model import GenModule
 import os
-from R2CCP.cp import get_cp_lists, calc_coverages_and_lengths
+from R2CCP.cp import get_cp_lists, calc_coverages_and_lengths, calc_lengths, get_predictions
 from R2CCP.models.callbacks import get_callbacks
 import random
 import numpy as np
@@ -129,7 +129,21 @@ class R2CCP():
         intervals = get_cp_lists(self.scaler_X.transform(X), self._args, self.range_vals, X_cal, y_cal, self.model)
         actual_intervals = self.invert_intervals(intervals)
         return calc_coverages_and_lengths(actual_intervals, y)
+    
+    def get_length(self, X):
+        X_train, y_train, X_cal, y_cal = get_train_cal_data(self.train_X, self.train_y, self._args)
+        intervals = get_cp_lists(self.scaler_X.transform(X), self._args, self.range_vals, X_cal, y_cal, self.model)
+        actual_intervals = self.invert_intervals(intervals)
+        return calc_lengths(actual_intervals)
 
+    def predict(self, X):
+        if not hasattr(self, 'model'):
+            raise Exception('Model not trained yet')
+        all_vals = get_predictions(self.scaler_X.transform(X), self.model, self.range_vals)
+        
+        best_values = self.scaler_y.inverse_transform(np.asarray(all_vals).reshape(-1, 1))
+        return best_values
+    
 def seed_everything(seed):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)

@@ -58,6 +58,12 @@ def get_scores(X, model):
     scores = torch.nn.functional.softmax(model(torch.tensor(X, dtype=torch.float32)), dim=1)
     return scores
 
+def get_predictions(X, model, range_vals):
+    pred_scores = get_scores(X, model)
+    all_vals = []
+    best_indices = torch.argmax(pred_scores, dim=1)
+    all_vals = range_vals[best_indices]
+    return all_vals
 
 def get_cp_lists(X, args, range_vals, X_cal, y_cal, model):
     scores, all_scores = get_all_scores(range_vals, X_cal, y_cal, model)
@@ -90,3 +96,18 @@ def calc_coverages_and_lengths(all_intervals, y):
         lengths.append(length)
 
     return coverages, lengths
+
+def calc_lengths(all_intervals):
+    lengths = []
+    for idx, intervals in enumerate(all_intervals):
+        if len(intervals) == 0:
+            length = 0
+            cov_val = 0
+        else:
+            length = 0
+            cov_val = 0
+            for interval in intervals:
+                length += interval[1] - interval[0]
+        lengths.append(length)
+
+    return lengths
