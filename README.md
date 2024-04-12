@@ -20,6 +20,12 @@ model.fit(X_train, y_train)
 intervals = model.get_intervals(X_test)
 coverage, length = model.get_coverage_length(X_test, Y_test)
 print(f"Coverage: {np.mean(coverage)}, Length: {np.mean(length)}")
+
+# If you don't have labels, you can just use get_length
+length = model.get_length(X_test)
+
+# Get model predictions
+predictions = model.predict(X_test)
 ```
 
 Here, we give a small example on a regression problem. We first generate a synthetic dataset of features of labels. We then generate the conformal intervals from this dataset.
