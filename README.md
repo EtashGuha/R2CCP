@@ -3,6 +3,13 @@ This is a library for generating prediction sets for machine learning regression
 We do this by first converting regression to a classification problem (divide the output space into 50 bins) and then using CP techniques for
 classification to obtain a conformal set.
 
+## Installation
+
+You can install by using pip.
+```
+pip install R2CCP
+```
+
 ## Get Started
 Our example file (example.py) provides a simple demonstration of how to use our R2CCP class for conformal prediction. At a high level, the basic steps are instantiating the model class, fitting against data, and analyzing the results. 
 ```
