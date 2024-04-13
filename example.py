@@ -10,6 +10,7 @@ model.fit(X_train, Y_train)
 
 intervals = model.get_intervals(X_test)
 coverage, length = model.get_coverage_length(X_test, Y_test)
+predictions = model.predict(X_test)
 print(f"Coverage: {np.mean(coverage)}, Length: {np.mean(length)}")
 
 model.set_coverage_level(.8)
