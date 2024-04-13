@@ -136,6 +136,9 @@ class R2CCP():
         actual_intervals = self.invert_intervals(intervals)
         return calc_lengths(actual_intervals)
 
+    def set_coverage_level(self, new_alpha):
+        setattr(self._args, "alpha", 1 - new_alpha)
+        
     def predict(self, X):
         if not hasattr(self, 'model'):
             raise Exception('Model not trained yet')
