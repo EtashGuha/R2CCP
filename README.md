@@ -33,6 +33,11 @@ length = model.get_length(X_test)
 
 # Get model predictions
 predictions = model.predict(X_test)
+
+# You can also change the desired coverage level
+model.set_coverage_level(.8)
+new_coverage, new_length = model.get_coverage_length(X_test, Y_test)
+print(f"New Coverage: {np.mean(coverage)}, New Length: {np.mean(length)}")
 ```
 
 Here, we give a small example on a regression problem. We first generate a synthetic dataset of features of labels. We then generate the conformal intervals from this dataset.
